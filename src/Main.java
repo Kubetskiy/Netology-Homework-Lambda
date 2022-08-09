@@ -1,7 +1,9 @@
 import java.util.*;
 
 public class Main {
+    // Константы для настройки
     private static final int MAXIMUM_AGE = 99;
+    private static final int limitWordsInSurname = Integer.MAX_VALUE;
 
     public static void main(String[] args) {
         Random random = new Random();
@@ -16,22 +18,31 @@ public class Main {
         };
         // Первый путь решения
         List<Person> peoplesList = new ArrayList<>(List.of(someGuys));
-        peoplesList.sort(new PeopleComparator());
-
-        // Второй путь решения
-        TreeSet<Person> ts = new TreeSet<>(new PeopleComparator());
-        ts.addAll(List.of(someGuys));
+        peoplesList.sort((o1, o2) -> {
+            int o1NumOfWords, o2NumOfWords;
+            String[] sn1 = o1.getSurname().split(" ");
+            String[] sn2 = o2.getSurname().split(" ");
+            o1NumOfWords = sn1.length;
+            o2NumOfWords = sn2.length;
+            if (o1NumOfWords > limitWordsInSurname) {
+                o1NumOfWords = limitWordsInSurname;
+            }
+            if (o2NumOfWords > limitWordsInSurname) {
+                o2NumOfWords = limitWordsInSurname;
+            }
+            if (o1NumOfWords == o2NumOfWords) {
+                return o2.getAge() - o1.getAge();
+            } else {
+                return o2NumOfWords - o1NumOfWords;
+            }
+        });
 
         System.out.print("\nСписок на входе:\n");
-        for (Person person: someGuys) {
+        for (Person person : someGuys) {
             System.out.printf("Фамилия: %-25s, Возраст: %3d\n", person.getSurname(), person.getAge());
         }
         System.out.print("\nСписок List:\n");
-        for (Person person: peoplesList) {
-            System.out.printf("Фамилия: %-25s, Возраст: %3d\n", person.getSurname(), person.getAge());
-        }
-        System.out.print("\nСписок TreeSet:\n");
-        for (Person person: ts) {
+        for (Person person : peoplesList) {
             System.out.printf("Фамилия: %-25s, Возраст: %3d\n", person.getSurname(), person.getAge());
         }
     }
