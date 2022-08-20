@@ -3,7 +3,7 @@ import java.util.*;
 public class Main {
     // Константы для настройки
     private static final int MAXIMUM_AGE = 99;
-    private static final int limitWordsInSurname = Integer.MAX_VALUE;
+    private static final int LIMIT_WORDS_IN_SURNAME = 0;
 
     public static void main(String[] args) {
         Random random = new Random();
@@ -16,20 +16,13 @@ public class Main {
                 new Person("Валя", "Попытка не пытка", random.nextInt(MAXIMUM_AGE) + 1),
                 new Person("Ваня", "Дурак", random.nextInt(MAXIMUM_AGE) + 1)
         };
-        // Первый путь решения
         List<Person> peoplesList = new ArrayList<>(List.of(someGuys));
         peoplesList.sort((o1, o2) -> {
             int o1NumOfWords, o2NumOfWords;
-            String[] sn1 = o1.getSurname().split(" ");
-            String[] sn2 = o2.getSurname().split(" ");
+            String[] sn1 = o1.getSurname().split(" ", LIMIT_WORDS_IN_SURNAME);
+            String[] sn2 = o2.getSurname().split(" ", LIMIT_WORDS_IN_SURNAME);
             o1NumOfWords = sn1.length;
             o2NumOfWords = sn2.length;
-            if (o1NumOfWords > limitWordsInSurname) {
-                o1NumOfWords = limitWordsInSurname;
-            }
-            if (o2NumOfWords > limitWordsInSurname) {
-                o2NumOfWords = limitWordsInSurname;
-            }
             if (o1NumOfWords == o2NumOfWords) {
                 return o2.getAge() - o1.getAge();
             } else {
