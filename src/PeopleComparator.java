@@ -2,7 +2,7 @@ import java.util.Comparator;
 
 public class PeopleComparator implements Comparator<Person> {
 
-    private int limitWordsInSurname = Integer.MAX_VALUE;
+    private int limitWordsInSurname = 0;
 
     public PeopleComparator(int wordsInSurname) {
         if (wordsInSurname > 0) {
@@ -16,16 +16,10 @@ public class PeopleComparator implements Comparator<Person> {
     @Override
     public int compare(Person o1, Person o2) {
         int o1NumOfWords, o2NumOfWords;
-        String[] sn1 = o1.getSurname().split(" ");
-        String[] sn2 = o2.getSurname().split(" ");
+        String[] sn1 = o1.getSurname().split(" ", limitWordsInSurname);
+        String[] sn2 = o2.getSurname().split(" ", limitWordsInSurname);
         o1NumOfWords = sn1.length;
         o2NumOfWords = sn2.length;
-        if (o1NumOfWords > limitWordsInSurname) {
-            o1NumOfWords = limitWordsInSurname;
-        }
-        if (o2NumOfWords > limitWordsInSurname) {
-            o2NumOfWords = limitWordsInSurname;
-        }
         if (o1NumOfWords == o2NumOfWords) {
             return o2.getAge() - o1.getAge();
         } else {
