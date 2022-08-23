@@ -23,15 +23,15 @@ public class Main {
         ts.addAll(List.of(someGuys));
 
         System.out.print("\nСписок на входе:\n");
-        for (Person person: someGuys) {
+        for (Person person : someGuys) {
             System.out.printf("Фамилия: %-25s, Возраст: %3d\n", person.getSurname(), person.getAge());
         }
         System.out.print("\nСписок List:\n");
-        for (Person person: peoplesList) {
+        for (Person person : peoplesList) {
             System.out.printf("Фамилия: %-25s, Возраст: %3d\n", person.getSurname(), person.getAge());
         }
         System.out.print("\nСписок TreeSet:\n");
-        for (Person person: ts) {
+        for (Person person : ts) {
             System.out.printf("Фамилия: %-25s, Возраст: %3d\n", person.getSurname(), person.getAge());
         }
     }
