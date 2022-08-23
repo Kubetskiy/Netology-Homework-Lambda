@@ -3,7 +3,7 @@ import java.util.*;
 public class Main {
     // Константы для настройки
     private static final int MAXIMUM_AGE = 99;
-    private static final int LIMIT_WORDS_IN_SURNAME = 0;
+    private static final int LIMIT_WORDS_IN_SURNAME = 0; // Макс количество слов, 0 - unlim.
 
     public static void main(String[] args) {
         Random random = new Random();
