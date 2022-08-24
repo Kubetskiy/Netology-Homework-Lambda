@@ -1,7 +1,9 @@
 import java.util.*;
 
 public class Main {
+    // Константы для настройки
     private static final int MAXIMUM_AGE = 99;
+    private static final int LIMIT_WORDS_IN_SURNAME = 0; // Макс количество слов, 0 - unlim.
 
     public static void main(String[] args) {
         Random random = new Random();
@@ -14,13 +16,19 @@ public class Main {
                 new Person("Валя", "Попытка не пытка", random.nextInt(MAXIMUM_AGE) + 1),
                 new Person("Ваня", "Дурак", random.nextInt(MAXIMUM_AGE) + 1)
         };
-        // Первый путь решения
         List<Person> peoplesList = new ArrayList<>(List.of(someGuys));
-        peoplesList.sort(new PeopleComparator());
-
-        // Второй путь решения
-        TreeSet<Person> ts = new TreeSet<>(new PeopleComparator());
-        ts.addAll(List.of(someGuys));
+        peoplesList.sort((o1, o2) -> {
+            int o1NumOfWords, o2NumOfWords;
+            String[] sn1 = o1.getSurname().split(" ", LIMIT_WORDS_IN_SURNAME);
+            String[] sn2 = o2.getSurname().split(" ", LIMIT_WORDS_IN_SURNAME);
+            o1NumOfWords = sn1.length;
+            o2NumOfWords = sn2.length;
+            if (o1NumOfWords == o2NumOfWords) {
+                return o2.getAge() - o1.getAge();
+            } else {
+                return o2NumOfWords - o1NumOfWords;
+            }
+        });
 
         System.out.print("\nСписок на входе:\n");
         for (Person person : someGuys) {
@@ -28,10 +36,6 @@ public class Main {
         }
         System.out.print("\nСписок List:\n");
         for (Person person : peoplesList) {
-            System.out.printf("Фамилия: %-25s, Возраст: %3d\n", person.getSurname(), person.getAge());
-        }
-        System.out.print("\nСписок TreeSet:\n");
-        for (Person person : ts) {
             System.out.printf("Фамилия: %-25s, Возраст: %3d\n", person.getSurname(), person.getAge());
         }
     }
