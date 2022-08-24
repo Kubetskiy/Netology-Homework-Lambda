@@ -28,5 +28,9 @@ public class Main {
         for (Person person : peoplesList) {
             System.out.printf("Фамилия: %-25s, Возраст: %3d\n", person.getSurname(), person.getAge());
         }
+        System.out.print("\nСписок TreeSet:\n");
+        for (Person person : ts) {
+            System.out.printf("Фамилия: %-25s, Возраст: %3d\n", person.getSurname(), person.getAge());
+        }
     }
 }

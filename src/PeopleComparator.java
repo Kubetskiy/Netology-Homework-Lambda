@@ -2,7 +2,7 @@ import java.util.Comparator;
 
 public class PeopleComparator implements Comparator<Person> {
 
-    private int limitWordsInSurname = Integer.MAX_VALUE;
+    private int limitWordsInSurname = 0;
 
     public PeopleComparator(int wordsInSurname) {
         if (wordsInSurname > 0) {
